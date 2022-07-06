@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Portfolio{% endblock %}
+
+{% block content %}
+
+<h1>Wonderful how things change.</h1>
+<br />
+
+<!-- Form to add new stock symbols to the database -->
+<form action="{% url 'delete_stock' %}" class="form-inline my-2 my-lg-0" method="POST">
+    {% csrf_token %}
+
+    <!-- accept the ticker submission here -->
+  <input class="form-control mr-sm-2" type="search" placeholder="Symbol (e.g. AAPL)" aria-label="Add Ticker" name="symbol">
+
+  <button class="btn btn-info" type="submit">Add Symbol</button>
+</form>
+
+<br />
+
+    <!-- table head -->
+    <br />
+    <table class="table table-bordered table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Symbol</th>
+          <th scope="col">Delete</th>
+        </tr>
+      </thead>
+
+
+      <tbody>
+        
+        <!-- Loop through the database and display all the tickers -->
+        {% if all_stocks %}
+            {% for stock in all_stocks %}
+                <tr>
+                  <td>{{ stock }}</td>
+                  <td><a href="{% url 'delete' stock.id %}">Delete</a></td>
+                </tr>
+            {% endfor %}  <!-- for item in output -->
+        {% endif %}  <!-- if all_stocks -->
+
+      </tbody>
+
+    </table>
+
+{% endblock %}

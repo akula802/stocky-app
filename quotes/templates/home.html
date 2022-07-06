@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %} Home {% endblock %}
+
+
+<!-- Main content block -->
+{% block content %}
+
+<h1>How do you do, <a href="{% url 'about' %}">fellow web</a> devs?</h1>
+<br />
+
+<!-- CHeck the api request result -->
+{% if get_quote_result %}
+
+    <!-- if there was an issue calling the API, triggereing the specific exception text: -->
+    {% if get_quote_result == "Something's fucky, Julian." %}
+        <p>Yo mama</p>
+
+    <!-- Otherwise the API return was good, let's do shit with it -->
+    {% else %}
+
+        <!-- Print what we want -->
+        <p>Current price of {{ get_quote_result.companyName }} (<i>{{ get_quote_result.symbol }}</i>):&nbsp&nbsp <b>${{ get_quote_result.latestPrice }}</b></p>
+
+        <br />
+
+        <!-- Just print every element on its own line 
+        {% for key, value in get_quote_result.items %}
+            {{ key}}: {{ value }} <br />
+        {% endfor %}
+        -->
+
+    {% endif %}
+
+<!-- Unexpected error condition -->
+{% else %}
+    <p>Fuck yo mama</p>
+    <br />
+    <p>Tell IT the error code is: 694201337
+{% endif %}
+
+
+<!-- end main content block -->
+{% endblock %}
+
